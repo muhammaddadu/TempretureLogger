@@ -46,7 +46,7 @@ SensorTag.discover(function(device) {
 				setInterval(function() {
 					device.readIrTemperature(function(objectTemperature, ambientTemperature) {
 						console.log('readIrTemperature', new Date(), objectTemperature, ambientTemperature);
-						io.emit(ambientTemperature);
+						io.emit('ambientTemperature', ambientTemperature);
 					});
 				}, 350);
 			});
