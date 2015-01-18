@@ -2,7 +2,7 @@
 * Monitors data from SensorTag and routes it back to client
 * @Author Muhammad Dadu
 *
-* @Copyright (c) 2014 by Muhammad Dadu, Inc. All Rights Reserved.
+* @Copyright (c) 2014 by Muhammad Dadu. All Rights Reserved.
 * Licensed under the terms of the Apache Public License
 * Please see the LICENSE included with this distribution for details.
 *
@@ -43,10 +43,12 @@ SensorTag.discover(function(device) {
 
 			// Enable Tempreture
 			device.enableIrTemperature(function() {
-				device.readIrTemperature(function(objectTemperature, ambientTemperature) {
-					console.log('readIrTemperature', new Date(), objectTemperature, ambientTemperature);
-					io.emit(ambientTemperature);
-				});
+				setInterval(function() {
+					device.readIrTemperature(function(objectTemperature, ambientTemperature) {
+						console.log('readIrTemperature', new Date(), objectTemperature, ambientTemperature);
+						io.emit(ambientTemperature);
+					});
+				}, 350);
 			});
 		});
 	});
