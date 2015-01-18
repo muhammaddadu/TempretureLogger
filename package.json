@@ -13,7 +13,8 @@
     },
     "dependencies": {
         "sensortag": "0.1.9",
-        "socket.io": "1.2.1"
+        "socket.io": "1.2.1",
+        "express": "4.11.0"
     },
     "license": "MIT"
 }

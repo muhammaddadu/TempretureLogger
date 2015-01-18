@@ -9,8 +9,13 @@
 */
 const 
 	SensorTag = require('sensortag'),
+	app = require('express')(),
 	http = require('http').Server(),
 	io = require('socket.io')(http);
+
+app.get('/', function(req, res){
+	res.sendFile(__dirname + '/client.html');
+});
 
 SensorTag.discover(function(device) {
 	console.log('SensorTag Discovered');
@@ -60,5 +65,5 @@ io.on('connection', function(socket){
 });
 
 http.listen(3000, function(){
-
+	console.log('Server started on port 3000');
 });
