@@ -9,7 +9,41 @@
 */
 const SensorTag = require('sensortag');
 
-SensorTag.discover(function(sensortag, udid) {
-	console.log(sensortag);
-	console.log('udid', sensortag);
+SensorTag.discover(function(device) {
+	console.log('SensorTag Discovered');
+	// Connect to device
+	device.connect(function() {
+		console.log('SensorTag Connected');
+		device.discoverServicesAndCharacteristics(function() {
+			// Log device services & characteristics
+			device.readDeviceName(function(deviceName) {
+				console.log('readDeviceName', deviceName);
+			});
+			device.readSystemId(function(systemId) {
+				console.log('readSystemId', systemId);
+			});
+			device.readSerialNumber(function(serialNumber) {
+				console.log('readSerialNumber', serialNumber);
+			});
+			device.readFirmwareRevision(function(firmwareRevision) {
+				console.log('readFirmwareRevision', firmwareRevision);
+			});
+			device.readHardwareRevision(function(hardwareRevision) {
+				console.log('readHardwareRevision', hardwareRevision);
+			});
+			device.readSoftwareRevision(function(softwareRevision) {
+				console.log('readSoftwareRevision', softwareRevision);
+			});
+			device.readManufacturerName(function(manufacturerName) {
+				console.log('readManufacturerName', manufacturerName);
+			});
+
+			// Enable Tempreture
+			device.enableIrTemperature(function() {
+				device.readIrTemperature(function(objectTemperature, ambientTemperature) {
+					console.log('readIrTemperature', new Date(), objectTemperature, ambientTemperature);
+				});
+			});
+		});
+	});
 });
