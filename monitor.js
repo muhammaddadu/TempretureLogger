@@ -7,7 +7,10 @@
 * Please see the LICENSE included with this distribution for details.
 *
 */
-const SensorTag = require('sensortag');
+const 
+	SensorTag = require('sensortag'),
+	http = require('http').Server(),
+	io = require('socket.io')(http);
 
 SensorTag.discover(function(device) {
 	console.log('SensorTag Discovered');
@@ -42,8 +45,18 @@ SensorTag.discover(function(device) {
 			device.enableIrTemperature(function() {
 				device.readIrTemperature(function(objectTemperature, ambientTemperature) {
 					console.log('readIrTemperature', new Date(), objectTemperature, ambientTemperature);
+					io.emit(ambientTemperature);
 				});
 			});
 		});
 	});
+});
+
+
+io.on('connection', function(socket){
+	console('Socket connected:', socket);
+});
+
+http.listen(3000, function(){
+
 });

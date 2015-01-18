@@ -12,7 +12,8 @@
         "url": "https://github.com/muhammaddadu/TempretureLogger/issues"
     },
     "dependencies": {
-        "sensortag": "0.1.9"
+        "sensortag": "0.1.9",
+        "socket.io": "1.2.1"
     },
     "license": "MIT"
 }
